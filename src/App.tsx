@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import {AccountType} from './components/account-type/AccountType';
+import {observer} from "mobx-react";
+import {AccountStore} from './store/accountStore';
+import {provider, useInstance} from 'react-ioc';
+import {Loading} from './common/loading/loading';
+import {createStyles, Theme, withStyles} from "@material-ui/core";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const useStyles = (theme: Theme) =>
+    createStyles({
+        appContainer: {
+            height: "100vh",
+        },
+    })
 
-export default App;
+
+export const App = withStyles(useStyles)(provider(AccountStore)(observer((props: { classes: any }) => {
+
+    const accountStore = useInstance(AccountStore);
+
+    useEffect(() => {
+        accountStore.init();
+    }, [accountStore])
+
+    if (accountStore.isLoading) {
+        return <Loading/>;
+    }
+
+    return (
+        <div className={props.classes.appContainer}>
+            <AccountType/>
+        </div>
+    );
+})));
+
+
