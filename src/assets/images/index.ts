@@ -4,7 +4,7 @@ import vector2 from "./vector2.png";
 import expertise from "./expertise.png"
 import tenant from "./tenant.png"
 import propertyManager from "./property-manager.png"
-import checkmark from "./checkmark.svg"
+import checkmark from "./checkmark.png"
 
 
 export const images = {

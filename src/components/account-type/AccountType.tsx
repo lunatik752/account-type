@@ -1,7 +1,6 @@
 import React from 'react';
 import {useInstance} from 'react-ioc';
 import * as AccountItems from "../../models/accountType-items";
-import {IAccountTypeItem} from "../../models/accountType-items";
 import {AccountStore} from '../../store/accountStore';
 import {observer} from "mobx-react";
 import {Button, Container, Grid, Typography, withStyles} from '@material-ui/core';
@@ -40,7 +39,7 @@ export const AccountType = withStyles(useStyles)(observer((props: { classes: any
                 Choose a type of your account
             </Typography>
             <Grid container justify="center" className={classes.accountsContainer} spacing={2}>
-                {accountStore.accountTypeItems.map((item: IAccountTypeItem) =>
+                {accountStore.accountTypeItems.map((item: AccountItems.IAccountTypeItem) =>
                     <AccountTypeItem
                         key={item.name}
                         item={item}
@@ -55,8 +54,7 @@ export const AccountType = withStyles(useStyles)(observer((props: { classes: any
                 color="primary"
                 className={classes.confirm}
                 onClick={handleConfirm}
-            >
-                confirm </Button>
+            >confirm</Button>
         </Container>
     )
 }))
